@@ -1,5 +1,6 @@
 <?php
-include 'backend/db_connect.php';
+include 'classes/database.php';
+include 'classes/autoloader.php';
 session_start();
 ?>
 <!doctype html>

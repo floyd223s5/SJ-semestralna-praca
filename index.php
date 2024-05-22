@@ -49,60 +49,26 @@
     <div class="py-5">
     <h1><strong>Featured Designs</strong></h1>
     </div>
+    <div class="row">
     <?php
 
+    $db = new Database();
     $sql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id DESC LIMIT 8";
-    $result = $conn->query($sql);
+    $result = $db->query($sql);
 
     if ($result->num_rows > 0) {
-        $counter = 0;
         while ($row = $result->fetch_assoc()) {
-            if ($counter % 4 == 0) {
-                echo '<div class="row mb-3">';
-            }
-            $price = $row['price'];
-            $salePrice = $row['sale_price'];
-            $discountPercentage = (!empty($salePrice) && $salePrice < $price) ? (($price - $salePrice) / $price * 100) : 0;
-            ?>
-            <div class="col-lg-3 col-sm-12">
-                <a href="product?id=<?php echo $row['id']; ?>">
-                    <div class="card product-card">
-                        <?php if (!empty($salePrice) && $salePrice < $price): ?>
-                            <div class="sale-badge">
-                                <?php echo round($discountPercentage) . '% OFF'; ?>
-                            </div>
-                        <?php endif; ?>
-                        <img src="<?php echo $row['img_path']; ?>" class="card-img-top" alt="<?php echo $row['name']; ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><strong><?php echo $row['name']; ?> </strong></h5>
-                            <?php if (!empty($salePrice) && $salePrice < $price): ?>
-                                <p class="card-text">
-                                    <span class="original-price"><?php echo number_format($price, 2); ?> €</span>
-                                    <span class="ml-2"><strong><?php echo number_format($salePrice, 2); ?> €</strong></span>
-                                </p>
-                            <?php else: ?>
-                                <p class="card-text"><?php echo number_format($price, 2); ?> €</p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <?php
-            $counter++;
-            if ($counter % 4 == 0) {
-                echo '</div>';
-            }
-        }
-        if ($counter % 4 != 0) {
-            echo '</div>';
+            $product = new Product($row['id'], $row['name'], $row['img_path'], $row['price'], $row['sale_price']);
+            $product->render();
         }
     } else {
-        echo "No products found";
+        echo "<div class='col-12'><p>No products found.</p></div>";
     }
 
-    $conn->close();
+    $db->close();
     ?>
     </div>
+</div>
 
     <div class="container pb-2">
         <div class="row justify-content-center">
