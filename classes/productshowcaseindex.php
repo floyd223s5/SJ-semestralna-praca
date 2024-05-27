@@ -1,5 +1,5 @@
 <?php
-class Product {
+class ProductShowcaseIndex {
     public $id;
     public $name;
     public $imgPath;
@@ -14,17 +14,18 @@ class Product {
         $this->salePrice = $salePrice;
     }
 
-    public static function getAllProducts($db) {
-        $sql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id DESC";
-        $result = $db->query($sql);
+    public static function getAllProducts(Database $db) {
+        $conn = $db->getConn();
+        $sql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id DESC LIMIT 4";
+        $result = $conn->query($sql);
         $products = [];
         while ($row = $result->fetch_assoc()) {
-            $products[] = new Product($row['id'], $row['name'], $row['img_path'], $row['price'], $row['sale_price']);
+            $products[] = new ProductShowcaseIndex($row['id'], $row['name'], $row['img_path'], $row['price'], $row['sale_price']);
         }
         return $products;
     }
 
-    public function render() {
+    public function renderProductShowcaseIndex() {
         $discountPercentage = (!empty($this->salePrice) && $this->salePrice < $this->price) ? round(($this->price - $this->salePrice) / $this->price * 100) : 0;
         $saleBadge = $discountPercentage ? "<div class='sale-badge'>{$discountPercentage}% OFF</div>" : "";
         echo "<div class='col-lg-3 col-sm-12'>";
@@ -42,3 +43,4 @@ class Product {
         echo "</div></div></a></div>";
     }
 }
+?>

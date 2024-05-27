@@ -47,29 +47,17 @@
 </div>
 <div class="container py-5">
     <div class="py-5">
-    <h1><strong>Featured Designs</strong></h1>
+        <h1><strong>Featured Designs</strong></h1>
+        </div>
+        <div class="row">
+            <?php
+                $products = ProductShowcaseIndex::getAllProducts($db);
+                foreach ($products as $product) {
+                    $product->renderProductShowcaseIndex();
+                }
+            ?>
+        </div>
     </div>
-    <div class="row">
-    <?php
-
-    $db = new Database();
-    $sql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id DESC LIMIT 8";
-    $result = $db->query($sql);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $product = new Product($row['id'], $row['name'], $row['img_path'], $row['price'], $row['sale_price']);
-            $product->render();
-        }
-    } else {
-        echo "<div class='col-12'><p>No products found.</p></div>";
-    }
-
-    $db->close();
-    ?>
-    </div>
-</div>
-
     <div class="container pb-2">
         <div class="row justify-content-center">
             <div class="col-auto">

@@ -1,7 +1,7 @@
 <?php
-include 'classes/database.php';
-include 'classes/autoloader.php';
 session_start();
+include_once 'classes/autoloader.php';
+$db = new Database();
 ?>
 <!doctype html>
 <html lang="en">
