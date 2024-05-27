@@ -1,7 +1,8 @@
-<?php 
+<?php
 include "include/header.php";
 $sortOption = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 ?>
+
 <div class="container py-5">
     <div class="py-5">
         <h1><strong>Catalog</strong></h1>
@@ -22,76 +23,29 @@ $sortOption = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
             <div class="col-lg-6">
                 <div class="nop">
                     <?php
-                        $totalProductsSql = "SELECT COUNT(*) as total FROM products";
-                        $totalProductsResult = $conn->query($totalProductsSql);
-                        if ($totalProductsResult->num_rows > 0) {
-                            $totalProductsRow = $totalProductsResult->fetch_assoc();
-                            $totalProductsCount = $totalProductsRow['total'];
-                            echo '<p>' . $totalProductsCount . ' Products</p>';
-                        };?>
+                    $totalProductsSql = "SELECT COUNT(*) as total FROM products";
+                    $totalProductsResult = $db->getConn()->query($totalProductsSql);
+                    if ($totalProductsResult->num_rows > 0) {
+                        $totalProductsRow = $totalProductsResult->fetch_assoc();
+                        $totalProductsCount = $totalProductsRow['total'];
+                        echo '<p>' . $totalProductsCount . ' Products</p>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 
     <?php
-    switch ($sortOption) {
-        case 'alphabeticalAZ':
-            $sortSql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY name ASC";
-            break;
-        case 'alphabeticalZA':
-            $sortSql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY name DESC";
-            break;
-        case 'lowestPrice':
-            $sortSql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY price ASC";
-            break;
-        case 'highestPrice':
-            $sortSql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY price DESC";
-            break;
-        case 'oldest':
-            $sortSql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id ASC";
-            break;
-        default:
-            $sortSql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id DESC";
-            break;
-    }
+    $products = CatalogProducts::getCatalogProducts($db, $sortOption);
 
-    $result = $conn->query($sortSql);
-
-    if ($result->num_rows > 0) {
+    if (count($products) > 0) {
         $counter = 0;
-        while ($row = $result->fetch_assoc()) {
+        foreach ($products as $product) {
             if ($counter % 4 == 0) {
                 echo '<div class="row mb-3">';
             }
-            $price = $row['price'];
-            $salePrice = $row['sale_price'];
-            $discountPercentage = (!empty($salePrice) && $salePrice < $price) ? (($price - $salePrice) / $price * 100) : 0;
-            ?>
-            <div class="col-lg-3 col-sm-12">
-                <a href="product.php?id=<?php echo $row['id']; ?>">
-                    <div class="card product-card">
-                        <?php if (!empty($salePrice) && $salePrice < $price): ?>
-                            <div class="sale-badge">
-                                <?php echo round($discountPercentage) . '% OFF'; ?>
-                            </div>
-                        <?php endif; ?>
-                        <img src="<?php echo $row['img_path']; ?>" class="card-img-top" alt="<?php echo $row['name']; ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><strong><?php echo $row['name']; ?> </strong></h5>
-                            <?php if (!empty($salePrice) && $salePrice < $price): ?>
-                                <p class="card-text">
-                                    <span class="original-price"><?php echo number_format($price, 2); ?> €</span>
-                                    <span class="ml-2"><strong><?php echo number_format($salePrice, 2); ?> €</strong></span>
-                                </p>
-                            <?php else: ?>
-                                <p class="card-text"><?php echo number_format($price, 2); ?> €</p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <?php
+            $product->renderCatalogProducts();
             $counter++;
             if ($counter % 4 == 0) {
                 echo '</div>';
@@ -103,9 +57,9 @@ $sortOption = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
     } else {
         echo "No products found";
     }
-
-    $conn->close();
     ?>
+
 </div>
+
 <script src="javascript/sort_product.js"></script>
-<?php include "include/footer.php";?>
+<?php include "include/footer.php"; ?>
