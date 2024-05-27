@@ -7,7 +7,7 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="/img/sasuke.webp" class="d-block w-100" alt="...">
+            <img src="/img/sasuke.jpg" class="d-block w-100" alt="...">
             <div class="overlay"></div>
             <div class="carousel-caption">
                 <h1>MULTIPLE FORMATS</h1>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="/img/tanjiro.webp" class="d-block w-100" alt="...">
+            <img src="/img/tanjiro.jpg" class="d-block w-100" alt="...">
             <div class="overlay"></div>
             <div class="carousel-caption">
                 <h1>CUSTOM DIGITIZING</h1>
@@ -89,7 +89,7 @@
             <div class="col-lg-6 col-sm-12">
                 <div class="indimg" style="position: relative; overflow: hidden;">
                     <div style="padding-top: 82.86%; /* 525/630 aspect ratio */">
-                        <img src="/img/22.webp" alt="" class="img-fluid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                        <img src="/img/22.jpg" alt="" class="img-fluid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ class ProductShowcaseIndex {
 
     public static function getAllProducts(Database $db) {
         $conn = $db->getConn();
-        $sql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id DESC LIMIT 4";
+        $sql = "SELECT id, name, img_path, price, sale_price FROM products ORDER BY id DESC LIMIT 8";
         $result = $conn->query($sql);
         $products = [];
         while ($row = $result->fetch_assoc()) {
