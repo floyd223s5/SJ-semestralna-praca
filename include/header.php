@@ -10,7 +10,7 @@ $db = new Database();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Otaru Embroidery</title>
     <link rel="icon" type="image/x-icon" href="/img/xicon.jpg">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style2.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;800&display=swap" rel="stylesheet">
