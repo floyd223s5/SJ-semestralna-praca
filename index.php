@@ -30,6 +30,7 @@
             <div class="overlay"></div>
             <div class="carousel-caption">
                 <h1>Instant Download</h1>
+		        <p>Your purchased designs are instantly downloadable from our website !</p>
                 <a href="catalog">
                     <button class="cdbtn"><h5>Shop</h5></button>
                 </a>
@@ -45,10 +46,20 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-<div class="container py-5">
-    <div class="py-5">
-        <h1><strong>Featured Designs</strong></h1>
+<br>
+<div class="container">
+        <div class="row justify-content-center text-center pt-5 pb-3">
+            <h1>
+                <strong>Otaruwear Embroidery</strong>
+            </h1>
+            <p class="pt-3">
+            Affordable anime designs from our instagram page! We decided to help out the small business owners that <br>
+            are starting in this industry to get our designs for the best prices on the market!
+            </p>
         </div>
+    </div>
+<div class="container pb-5 pt-3">
+        <h1 class="pt-5 pb-3"><strong>Featured Designs</strong></h1>
         <div class="row">
             <?php
                 $products = ProductShowcaseIndex::getAllProducts($db);
@@ -57,7 +68,6 @@
                 }
             ?>
         </div>
-    </div>
     <div class="container pb-2">
         <div class="row justify-content-center">
             <div class="col-auto">
@@ -68,22 +78,26 @@
         </div>
     </div>
     <hr>
-    <div class="container">
-        <div class="row justify-content-center text-center py-5">
-            <h1>
-                <strong>OtaruWear Embroidery</strong>
-            </h1>
-            <p class="pt-3">
-            Affordable anime designs from our instagram page! We decided to help out the small business owners that <br>
-            are starting in this industry to get our designs for the best prices on the market!
-            </p>
+    <div class="row pt-4 pb-1">
+    <h1 class="pb-3"><strong>Our Anime Bundles</strong></h1>
+            <?php
+                $bundles = BundleShowcaseIndex::getAllBundles($db);
+                foreach ($bundles as $bundle) {
+                    $bundle->renderBundleShowcaseIndex();
+                }
+            ?>
+        </div>
+        <div class="container pb-2">
+        <div class="row justify-content-center">
             <div class="col-auto">
-                <a href="catalog">
-                    <button class="viewbtn"><h5>SHOP NOW</h5></button>
+                <a href="bundles">
+                    <button class="viewbtn"><h5>View All</h5></button>
                 </a>
             </div>
         </div>
     </div>
+    <hr>
+</div>
     <div class="container pb-5">
         <div class="row">
             <div class="col-lg-6 col-sm-12">
