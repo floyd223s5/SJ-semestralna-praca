@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hostiteľ: db.websupport.sk:3306
--- Čas generovania: Po 27.Máj 2024, 15:26
--- Verzia serveru: 8.0.32-24
--- Verzia PHP: 8.1.16
+-- Hostiteľ: 127.0.0.1
+-- Čas generovania: St 29.Máj 2024, 12:22
+-- Verzia serveru: 10.4.32-MariaDB
+-- Verzia PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Databáza: `v2d3hhpm`
+-- Databáza: `otaruembroidery`
 --
 
 -- --------------------------------------------------------
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bundles` (
-  `id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `img_path` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `img_path` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `sale_price` decimal(10,2) DEFAULT NULL,
-  `download_link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `download_link` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -56,11 +56,11 @@ INSERT INTO `bundles` (`id`, `name`, `img_path`, `price`, `sale_price`, `downloa
 --
 
 CREATE TABLE `discount` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `code` varchar(255) NOT NULL,
   `value` varchar(10) NOT NULL,
-  `max_uses` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `max_uses` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Sťahujem dáta pre tabuľku `discount`
@@ -76,48 +76,18 @@ INSERT INTO `discount` (`id`, `code`, `value`, `max_uses`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` int NOT NULL,
-  `first_name` varchar(191) COLLATE utf8mb4_general_ci NOT NULL,
-  `last_name` varchar(191) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `first_name` varchar(191) NOT NULL,
+  `last_name` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
-  `payment_mode` varchar(191) COLLATE utf8mb4_general_ci DEFAULT 'PayPal',
-  `transaction_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `status` varchar(191) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `comments` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `download_token` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `payment_mode` varchar(191) DEFAULT 'PayPal',
+  `transaction_id` varchar(191) DEFAULT NULL,
+  `status` varchar(191) DEFAULT NULL,
+  `comments` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `download_token` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Sťahujem dáta pre tabuľku `orders`
---
-
-INSERT INTO `orders` (`id`, `first_name`, `last_name`, `email`, `total_price`, `payment_mode`, `transaction_id`, `status`, `comments`, `created_at`, `download_token`) VALUES
-(1, 'Brian', 'Krawczyk', 'briankrawczyk93@googlemail.com', 199.00, 'PayPal', '8J684213C96504049', 'PAID', NULL, '2024-01-28 20:17:22', NULL),
-(2, 'Mariana', 'Solis Medrano', 'marianasmsolismedrano@gmail.com', 59.00, 'PayPal', '0GM55959M1696980G', 'PAID', NULL, '2024-01-30 20:31:12', NULL),
-(3, 'Jordan', 'Williams', 'noloosethreads1@gmail.com', 199.00, 'PayPal', '51M96671FP4496649', 'PAID', NULL, '2024-02-03 04:25:08', NULL),
-(4, 'Andres', 'Orozco', 'orozcoandres0903@gmail.com', 199.00, 'PayPal', '9UX90949NS508001B', 'PAID', NULL, '2024-02-10 01:32:37', NULL),
-(5, 'henrueta', 'solcany', 'henrieta.solcanyova@gmail.com', 3.99, 'PayPal', '6JW44845W0448390Y', 'PAID', NULL, '2024-02-11 20:02:02', NULL),
-(6, 'Bryan', 'Larin', 'blarin42@icloud.com', 59.00, 'PayPal', '2NB547659X859140U', 'PAID', NULL, '2024-02-14 17:54:39', NULL),
-(7, 'Maathir ', 'Al hilali', 'maather99.m@gmail.com', 199.00, 'PayPal', '0TW40384N4837823U', 'PAID', NULL, '2024-02-15 06:09:37', NULL),
-(8, 'BRODERIE', '-EA', 'elmokhsami92@gmail.com', 59.00, 'PayPal', '01B74356BM011552V', 'PAID', NULL, '2024-02-20 12:26:31', NULL),
-(11, 'Jocelyn', 'Lara', 'jocelyn1232111@gmail.com', 59.00, 'PayPal', '2DY68379AC560841Y', 'PAID', NULL, '2024-03-02 16:52:30', NULL),
-(12, 'MEJHAD', 'MUSTAPHA', 'mustapha241984@gmail.com', 6.99, 'PayPal', '39A51487FY111535C', 'PAID', NULL, '2024-03-09 16:24:13', NULL),
-(13, 'Zhanuzak', 'Asangaziev', 'johngazi@yahoo.com', 6.99, 'PayPal', '5EE62159V2300683U', 'PAID', NULL, '2024-03-11 14:03:49', NULL),
-(14, 'Omer', 'Alpsoy', 'omer_black@live.nl', 199.00, 'PayPal', '2HU54556W1509503N', 'PAID', NULL, '2024-03-28 21:55:30', NULL),
-(15, 'andre', 'igland', 'lyngdal1999@hotmail.no', 6.99, 'PayPal', '4A371995H5519021T', 'PAID', NULL, '2024-04-07 01:05:01', NULL),
-(16, 'Brandi', 'Smith', 'brandistwocents@gmail.com', 59.00, 'PayPal', '4S27751103161951M', 'PAID', NULL, '2024-04-10 19:17:56', NULL),
-(17, 'Yach', 'Valdez ', 'yachv45@gmail.com', 59.00, 'PayPal', '9GT24698037818647', 'PAID', NULL, '2024-04-15 18:44:36', NULL),
-(18, 'Marcela', 'Chaves Martins', 'marcelacmartins03@hotmail.com', 114.00, 'PayPal', '5V824203H2600641B', 'PAID', NULL, '2024-04-30 21:47:51', NULL),
-(19, 'Liridon', 'Hulaj', 'Liridonhulaj07@gmail.com', 7.99, 'PayPal', '7AS8584425998062S', 'PAID', NULL, '2024-05-03 04:39:48', NULL),
-(20, 'Marco', 'Cogo', 'cogomarcoebay@gmail.com', 13.98, 'PayPal', '2EW25241YK6628501', 'PAID', NULL, '2024-05-03 13:31:00', NULL),
-(26, 'Mustafa ', 'Jabber', 'Odayjabber31@gmail.com', 7.99, 'PayPal', '0S729048LU274421F', 'PAID', NULL, '2024-05-03 18:04:08', NULL),
-(27, 'Andrija', 'Stankovic', 'stankovicandrija001@gmail.com', 199.00, 'PayPal', '8K0756701J621092C', 'PAID', NULL, '2024-05-04 21:46:05', NULL),
-(28, 'Jolan', 'MÃ¶bus', 'hallojolan@gmail.com', 530.00, 'PayPal', '67A45856U8797563B', 'PAID', NULL, '2024-05-16 20:30:44', NULL),
-(29, 'Ismael', 'Gutierrez', 'ismaelgutierrrez18@gmail.com', 45.00, 'PayPal', '6E189515LE5884742', 'PAID', NULL, '2024-05-17 17:19:36', NULL),
-(30, 'Niko', 'Klimenta', 'niko.klimenta@hotmail.de', 6.99, 'PayPal', '65480255A2122910X', 'PAID', NULL, '2024-05-18 15:06:54', NULL),
-(31, 'rida', 'errifi', 'redar8019@gmail.com', 8.99, 'PayPal', '6R890422M2843574N', 'PAID', NULL, '2024-05-22 13:04:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -126,54 +96,11 @@ INSERT INTO `orders` (`id`, `first_name`, `last_name`, `email`, `total_price`, `
 --
 
 CREATE TABLE `order_items` (
-  `id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `product_id` int DEFAULT NULL,
-  `bundle_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Sťahujem dáta pre tabuľku `order_items`
---
-
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `bundle_id`) VALUES
-(1, 1, NULL, 3),
-(2, 2, NULL, 1),
-(3, 3, NULL, 3),
-(4, 4, NULL, 3),
-(5, 5, 14, NULL),
-(6, 6, NULL, 1),
-(7, 7, NULL, 3),
-(8, 8, NULL, 1),
-(11, 11, NULL, 1),
-(12, 12, 5, NULL),
-(13, 13, 18, NULL),
-(14, 14, NULL, 3),
-(15, 15, 6, NULL),
-(16, 16, NULL, 1),
-(17, 17, NULL, 1),
-(18, 18, NULL, 2),
-(19, 19, 29, NULL),
-(20, 20, 14, NULL),
-(21, 20, 11, NULL),
-(22, 21, 1, NULL),
-(23, 22, 1, NULL),
-(24, 22, 5, NULL),
-(25, 22, 4, NULL),
-(26, 23, 4, NULL),
-(27, 23, 5, NULL),
-(28, 23, 1, NULL),
-(29, 23, NULL, 2),
-(30, 24, 4, NULL),
-(31, 24, 1, NULL),
-(32, 24, NULL, 2),
-(33, 25, 40, NULL),
-(34, 26, 40, NULL),
-(35, 27, NULL, 3),
-(36, 28, 45, NULL),
-(37, 29, NULL, 45),
-(38, 30, 18, NULL),
-(39, 31, 33, NULL);
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `bundle_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -182,12 +109,12 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `bundle_id`) VALUES
 --
 
 CREATE TABLE `products` (
-  `id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `img_path` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `img_path` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `sale_price` decimal(10,2) DEFAULT NULL,
-  `download_link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+  `download_link` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -235,9 +162,9 @@ INSERT INTO `products` (`id`, `name`, `img_path`, `price`, `sale_price`, `downlo
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -299,37 +226,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pre tabuľku `bundles`
 --
 ALTER TABLE `bundles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT pre tabuľku `discount`
 --
 ALTER TABLE `discount`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pre tabuľku `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pre tabuľku `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pre tabuľku `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT pre tabuľku `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Obmedzenie pre exportované tabuľky

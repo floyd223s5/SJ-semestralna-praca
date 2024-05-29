@@ -70,8 +70,8 @@ class Checkout {
                 <div class="col-lg-4 col-sm-12">
                     <h3 class="mb-3">Order Summary</h3>
                     <div class="border p-3 mb-3">
-                        <p style="color: red;">*Note: We've temporarily shifted to <u>email delivery</u> for digital goods. Ensure <u>accurate personal details at checkout</u> for prompt delivery. Thank you.</p>
                         <p><strong>Order Total:</strong> <?php echo number_format($this->getTotalPrice(), 2); ?> €</p>
+                        <p>*Note: After purchase, your items can be instantly downloaded from our cloud storage.</p>
                         <p>Tax is calculated in the total price.</p>
                     </div>
                     <div id="paypal-button-container"></div>

@@ -40,7 +40,7 @@ class Cart {
             echo '<div class="cartempty container text-center py-5">
                     <h1>Your cart is empty</h1>
                     <br>
-                    <a href="catalog.php">
+                    <a href="catalog">
                         <button class="viewbtn"><h5>Continue Shopping</h5></button>
                     </a>
                   </div>';
@@ -98,14 +98,14 @@ class Cart {
                   </table>
                   <div class="row">
                       <div class="col-lg-8 col-md-6 col-sm-6 text-left">
-                          <a href="catalog.php" class="btn">
+                          <a href="catalog" class="btn">
                               <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
                           </a>
                       </div>
                       <div class="col-lg-4 col-md-6 col-sm-6 text-right">
                           <h4>Subtotal:</h4>
                           <h1>' . number_format($this->getTotalPrice(), 2) . ' €</h1>
-                          <a href="checkout.php">
+                          <a href="checkout">
                               <button class="viewbtn"><h5>Checkout</h5></button>
                           </a>
                       </div>
